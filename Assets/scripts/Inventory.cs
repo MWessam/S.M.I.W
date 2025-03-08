@@ -27,6 +27,7 @@ public class inventoryItem
 [CreateAssetMenu(fileName = "Inventory", menuName = "Inventory", order = 0)]
 public class Inventory : ScriptableObject
 {
+    private bool _isOpen;
     [SerializeField] List<inventoryItem> items = new List<inventoryItem>();
     public Inventory()
     {
@@ -80,8 +81,19 @@ public class Inventory : ScriptableObject
         }
     }
 
+    public void OpenInventory()
+    {
+        _isOpen = !_isOpen;
+        gameobject.setactive(_isOpen);
+    }
+
     public override string ToString()
     {
         return base.ToString();
     }
+}
+
+public class Store
+{
+    private Inventory shop;
 }

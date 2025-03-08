@@ -4,31 +4,52 @@ using DG.Tweening;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using static events;
+
+// Manage tiles only
+// Responsibility: Tiles.
+// [tile0, tile1, tile2, tile3,...]
+// Managers: Responsible for multiple objects of the same type
+// Seperation of Concerns.
+// Tile Manager:
+// 1. Remove input handling.
+// 2. Remove using static class
+// 3. Keep it focused on tiles only.
+
 public class tileManager : MonoBehaviour
 {
     [SerializeField] List<Tilemap> tilemaps;
     [SerializeField] List<ItemData> tileDatas;
+    private Camera _camera;
 
     Dictionary<TileBase, ItemData> tileBasData = new Dictionary<TileBase, ItemData>();
     private void Awake()
     {
         foreach (ItemData _TileData in tileDatas)
         {
+            OnTileBreak += () => { _TileData.breakable = false; };
             foreach (TileBase _TileBase in _TileData.tiles)
             {
                 tileBasData.Add(_TileBase, _TileData);
             }
         }
+
+        _camera = Camera.Main;
     }
+    // GetTileAtPosition(Vector3Int) -> TileBase
+    // BreakTileAtPosition(Vector3Int)
+    // BreakTile(TileBase)
+    
     // Start is called before the first frame update
     void Start()
     {
+        
         onInventoryToggle += OnInventoryToggle;
         onTileLeave += OnTileLeave;
         onMouseUp += OnMouseUp;
         onMouseDown += OnMouseDown;
         onTileBreakStart += OnTileBreakStart;
         onTileHoverStart += OnTileHoverStart;
+        // onTileBreakEnd += OnTileBreakEnd;
     }
     [SerializeField] float steadyThreshold = 1f;
     public float timeSinceTheLastSteady = 0;
@@ -170,8 +191,6 @@ public class tileManager : MonoBehaviour
                 }
             }
         }
-
-
         TriggerShowItem(clickedTileDatas, cellpos);
         clickedTileDatas.Clear();
 
@@ -259,4 +278,27 @@ public class tileManager : MonoBehaviour
     }
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Audio Manager:
+// GetAudio(string) -> AudioClip
+// PlayAudio
+// StopAudio
+
 

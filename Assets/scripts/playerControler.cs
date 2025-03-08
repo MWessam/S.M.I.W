@@ -13,6 +13,7 @@ using static inventory;
 
 
 
+//Responsibility: Player input handling
 public class playerControler : MonoBehaviour
 {
     [SerializeField] GameObject inventoryObject;
@@ -86,9 +87,21 @@ public class playerControler : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.I))
         {
-            bool toggleTo = !inventoryObject.activeSelf;
-            inventoryObject.SetActive(toggleTo);
-            TriggerInventoryToggle(toggleTo);
+            // bool toggleTo = !inventoryObject.activeSelf;
+            // inventoryObject.SetActive(toggleTo);
+            // TriggerInventoryToggle(toggleTo);
+            //Inventory.ToggleInventory();
+        }
+
+        if (Input.GetMosueButtonDown(0))
+        {
+            // TileManager.StartBreakingBlock(postion);
+            
+        }
+
+        if (Input.GetMouseButtonup(0))
+        {
+            tileManager.StopBreakingBlock();
         }
 
     }
@@ -184,14 +197,14 @@ public class PowerUpEntry
         forwardHead = state;
     }
 
-    void OnTileBreakEnd((ItemData, TileBase) data, Vector3Int cellPos)
-    {
-        inventory.addItem(data.Item1);
-        Vector3 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        pos.z = 0;
-        Instantiate(data.Item1.worldPrefabe).transform.position = pos;
-
-    }
+    // void OnTileBreakEnd((ItemData, TileBase) data, Vector3Int cellPos)
+    // {
+    //     // inventory.addItem(data.Item1);
+    //     Vector3 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+    //     pos.z = 0;
+    //     Instantiate(data.Item1.worldPrefabe).transform.position = pos;
+    //
+    // }
 
     void OnItemDataRetrived(List<(ItemData, TileBase)> datas, Vector3Int cellpos)
     {

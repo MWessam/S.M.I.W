@@ -54,3 +54,10 @@ public class ItemData : ScriptableObject
         return base.ToString();
     }
 }
+
+public class ItemManager
+{
+    private List<ItemData> items;
+    // GetItemById(itemId)
+    // GetItemByName(itemName)
+}
